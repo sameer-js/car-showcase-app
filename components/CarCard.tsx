@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { CarProps } from '@/types';
 import { CarDetails, CustomButton } from '.';
-import { calculateCarRent } from '@/utils';
+import { calculateCarRent, generateCarImageUrl } from '@/utils';
 
 interface CarCardProps {
   car: CarProps;
@@ -21,7 +21,7 @@ const CarCard = ({ car }: CarCardProps) => {
     <div className='car-card group'>
       <div className='car-card__content'>
         <h2 className='car-card__content-title'>
-          {make} {model}
+          {make.length < 5 ? make.toUpperCase() : make} {model}
         </h2>
       </div>
       <p className='flex mt-6 text-[32px] font-extrabold'>
@@ -31,7 +31,7 @@ const CarCard = ({ car }: CarCardProps) => {
       </p>
       <div className='relative w-full h-40 my-3 object-contain'>
         <Image
-          src='/hero.png'
+          src={generateCarImageUrl(car)}
           alt='Car Model'
           sizes='auto'
           fill
@@ -57,7 +57,7 @@ const CarCard = ({ car }: CarCardProps) => {
             <p className='text-[14px]'>{drive.toUpperCase()}</p>
           </div>
           <div className='flex flex-col justify-center items-center gap-2'>
-            <Image src='/gas.svg' width={20} height={20} alt='gas' />
+            <Image src='/gas.svg' width={18} height={20} alt='gas' />
             <p className='text-[14px]'>{city_mpg} MPG</p>
           </div>
         </div>
